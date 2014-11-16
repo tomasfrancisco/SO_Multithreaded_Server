@@ -8,7 +8,7 @@ Multithreaded Server implemented in C, with capability to switch configurations 
 ```
 cd sample	
 make
-./simplehttpd.c
+./simplehttpd
 ```
 
 ###How to execute improved and multithreaded server:

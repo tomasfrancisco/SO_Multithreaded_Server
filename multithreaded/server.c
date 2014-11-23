@@ -44,23 +44,39 @@ void execute_script(int socket);
 void not_found(int socket);
 void catch_ctrlc(int);
 void cannot_execute(int socket);
+void update_config(int sig);
 
 char buf[SIZE_BUF];
 char req_buf[SIZE_BUF];
 char buf_tmp[SIZE_BUF];
 int port,socket_conn,new_conn;
 
+pid_t config_process_id;
 
 int main(int argc, char ** argv)
 {
-	get_file();
-	/*struct sockaddr_in client_name;
-	socklen_t client_name_len = sizeof(client_name);
-	int port;
+
+	//struct sockaddr_in client_name;
+	//socklen_t client_name_len = sizeof(client_name);
+	//int port;
 
 	signal(SIGINT,catch_ctrlc);
+	signal(SIGHUP, update_config);
 
-	// Verify number of arguments
+	init_config();
+	if((config_process_id = fork()) == 0) {
+		config_process(".config");
+	}
+
+	wait_for_config();
+
+	while(1) {
+		printf("Sleeping...\n");
+		sleep(5);
+	}
+
+
+	/*// Verify number of arguments
 	if (argc!=2) {
 		//get_file();
 		printf("Usage: %s <port>\n",argv[0]);
@@ -72,6 +88,11 @@ int main(int argc, char ** argv)
 	// Configure listening port
 	if ((socket_conn=fireup(port))==-1)
 		exit(1);
+
+	init_config();
+	if(fork() == 0) {
+		config_process(".config");
+	}
 
 	// Serve requests
 	while (1)
@@ -99,7 +120,7 @@ int main(int argc, char ** argv)
 		close(new_conn);
 
 	}*/
-
+	return 1;
 }
 
 // Processes request from client
@@ -334,11 +355,26 @@ void cannot_execute(int socket)
 	return;
 }
 
-
 // Closes socket before closing
 void catch_ctrlc(int sig)
 {
 	printf("Server terminating\n");
 	close(socket_conn);
+	kill(config_process_id, SIGINT);
 	exit(0);
+}
+
+void update_config(int sig) {
+	char scripts[100];
+	char scheduler[100];
+	int num_threads;
+	printf("Configuration file updated\n");
+	port = get_port();
+	printf("port: %d\n", port);
+	num_threads = get_num_threads();
+	printf("num_threads: %d\n", num_threads);
+	get_scheduler(scheduler);
+	printf("scheduler: %s\n", scheduler);
+	get_scripts(scripts);
+	printf("scripts: %s\n", scripts);
 }

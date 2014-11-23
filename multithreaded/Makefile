@@ -1,4 +1,4 @@
-FLAGS  = -Wall -g
+FLAGS  = -pthread -D_REENTRANT -Wall -g 
 CC     = gcc
 PROG   = server
 OBJS   = config.o server.o

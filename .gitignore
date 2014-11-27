@@ -2,3 +2,9 @@
 *.o
 simplehttpd
 server
+
+##Code to ignore
+server.c
+
+##Other files
+.DS_Store

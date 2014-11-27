@@ -124,6 +124,11 @@ void get_scripts(char *scripts) {
 void config_process(const char* path) {
   FILE *fp;
 
+  sigset_t mask;
+  sigfillset(&mask);
+  sigdelset(&mask, 1);
+  sigdelset(&mask, 2);
+  sigprocmask(SIG_SETMASK, &mask, NULL);
   signal(SIGINT, end_config_process);
 
   fp = get_file_to_read(path);

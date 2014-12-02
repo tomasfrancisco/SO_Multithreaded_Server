@@ -1,10 +1,7 @@
 ##Compiled files to ignore
 *.o
-simplehttpd
-server
 
 ##Code to ignore
-multithreaded/server.c
 
 ##Other files
 .DS_Store

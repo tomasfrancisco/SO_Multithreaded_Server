@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/buffer.h
+
+../include/receiver.h
+
+/Users/tfrancisco/Documents/dev/SO_Multithreaded_Server/multithreaded/src/receiver.c
+stdio.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+unistd.h
+-
+ctype.h
+-
+sys/stat.h
+-
+sys/wait.h
+-
+stdlib.h
+-
+string.h
+-
+signal.h
+-
+receiver.h
+/Users/tfrancisco/Documents/dev/SO_Multithreaded_Server/multithreaded/src/receiver.h
+buffer.h
+/Users/tfrancisco/Documents/dev/SO_Multithreaded_Server/multithreaded/src/buffer.h
+
